@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:layout_marginBottom="10dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:id="@+id/MyCardView"
+        app:cardCornerRadius="22.5dp"
+        android:layout_marginRight="10dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/myImageView"
+            android:src="@drawable/pfp"
+            android:scaleType="centerCrop"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sung Jin Woo"
+        android:layout_toRightOf="@id/MyCardView"
+        android:id="@+id/MyGroupName"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/MyGroupMessage"
+        android:layout_toRightOf="@id/MyCardView"
+        android:layout_below="@id/MyGroupName"
+        android:text="Jinnah : Hi Jin Woo"
+        android:textSize="15sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/MyTimeStamp"
+        android:text="12:00"
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold"/>
+
+</RelativeLayout>

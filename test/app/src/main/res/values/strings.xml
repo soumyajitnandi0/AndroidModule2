@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">test</string>
+    <string name="aboutMe">About Me</string>"
+    <string name="more">Know About Me</string>
+    <string name="click">Click Each Button To Know Specific Aspect Of My Life</string>
+
+    <string name="y1">Youthful</string>
+    <string name="y2">Yielding</string>
+    <string name="y3">Yearning</string>
+
+    <string name="u1">Understanding</string>
+    <string name="u2">Unbiased</string>
+    <string name="u3">Unstoppable</string>
+    <string name="u4">Unbeatable</string>
+
+    <string name="g1">Generous</string>
+    <string name="g2">Genius</string>
+    <string name="g3">Grateful</string>
+    <string name="g4">Gentleman</string>
+    <string name="g5">Giving</string>
+</resources>
