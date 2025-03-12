@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "838090924801",
+    "project_id": "announcementappandroid",
+    "storage_bucket": "announcementappandroid.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838090924801:android:768efffaa79a9c3f5a3100",
+        "android_client_info": {
+          "package_name": "com.example.adminpannel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC67DZz9h8IYBXhPgJXxUu6CuWC0grZs0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
