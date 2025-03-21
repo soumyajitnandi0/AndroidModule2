@@ -16,8 +16,8 @@ class input : AppCompatActivity() {
         setContentView(binding.root)
 
         databaseHelper = databasehelper(this)
-
         binding.addbtn.setOnClickListener {
+            Toast.makeText(this,"Kyu Likh Li Prem Katha Apni",Toast.LENGTH_LONG).show()
             val titleInput = binding.titleinput.text.toString().trim()
             val noteInput = binding.noteinput.text.toString().trim()
 
@@ -34,6 +34,7 @@ class input : AppCompatActivity() {
         }
 
         binding.backbtn.setOnClickListener {
+            Toast.makeText(this,"Chal Nikal",Toast.LENGTH_LONG).show()
             finish()
         }
     }
