@@ -1,23 +1,24 @@
 package com.example.soundapp
 
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
-import android.provider.Telephony.Mms.Intents
+import android.content.ServiceConnection
+import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import java.security.PrivateKey
 
 class musicadapter(
-    private val songList: List<songdata>,
-    private val onSongClick: (songdata) -> Unit
-):RecyclerView.Adapter<musicadapter.MusicViewHolder>() {
+    private val songList: List<SongData>,
+    private val onSongClick: (SongData, Int) -> Unit
+) : RecyclerView.Adapter<musicadapter.MusicViewHolder>() {
 
     class MusicViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val songTitle: TextView = itemView.findViewById(R.id.song_title)
@@ -43,24 +44,16 @@ class musicadapter(
 
         holder.playButton.setOnClickListener {
             val context = holder.itemView.context
-            val songResId = context.resources.getIdentifier(
-                song.title.lowercase().replace(" ", "_"), "raw", context.packageName
-            )
             val intent = Intent(context, musicservice::class.java).apply {
-                putExtra("SONG_RES_ID", songResId)
                 action = musicservice.ACTION_PLAY
+                putParcelableArrayListExtra(musicservice.EXTRA_SONG_LIST, ArrayList(songList))
+                putExtra(musicservice.EXTRA_SONG_INDEX, position)
             }
-
             context.startService(intent)
         }
 
         holder.musicCard.setOnClickListener {
-            onSongClick(song)
-            val context = holder.itemView.context as AppCompatActivity
-            val playerFragment = musicplayerfragment.newInstance(song.title, song.artist)
-            context.supportFragmentManager.beginTransaction()
-                .replace(R.id.musicPlayer, playerFragment)
-                .commit()
+            onSongClick(song, position)
         }
     }
 }

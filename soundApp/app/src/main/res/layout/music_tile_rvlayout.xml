@@ -66,7 +66,7 @@
             android:textColor="#99FFFFFF"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/album_art"
-            app:layout_constraintStart_toStartOf="@+id/song_artist" />
+            app:layout_constraintStart_toStartOf="@+id/artist_name" />
 
         <ImageButton
             android:id="@+id/play_button"
