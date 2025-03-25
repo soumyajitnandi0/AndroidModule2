@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AddBook">
+
+    <EditText
+        android:id="@+id/addBookName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="add book name"
+        app:layout_constraintBottom_toTopOf="@+id/addBookAuthor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/addBookAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="add book author"
+        app:layout_constraintBottom_toTopOf="@+id/addBookDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addBookName" />
+
+    <EditText
+        android:id="@+id/addBookDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="add book description"
+        app:layout_constraintBottom_toTopOf="@+id/addBookGenre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addBookAuthor" />
+
+    <EditText
+        android:id="@+id/addBookGenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="add book genre"
+        app:layout_constraintBottom_toTopOf="@+id/saveBookBtn"
+        app:layout_constraintTop_toBottomOf="@+id/addBookDescription" />
+
+    <Button
+        android:id="@+id/saveBookBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Book"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addBookGenre" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
