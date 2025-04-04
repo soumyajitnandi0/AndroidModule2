@@ -18,6 +18,13 @@ class LoginActivity : AppCompatActivity() {
 
         databaseReference = FirebaseDatabase.getInstance().reference.child("users")
 
+        val currentUser = SharedPrefHelper.getUser(this)
+        if (currentUser != null) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
+
         binding.btnLogin.setOnClickListener {
             val username = binding.etUsername.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()

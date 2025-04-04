@@ -13,6 +13,7 @@ class UserAdapter(
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvUsername: TextView = itemView.findViewById(R.id.tvUsername)
+        val tvInitial: TextView = itemView.findViewById(R.id.tvInitial)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -23,12 +24,16 @@ class UserAdapter(
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = users[position]
         holder.tvUsername.text = user.username
+
+        // Set the initial letter of the username as avatar
+        if (user.username.isNotEmpty()) {
+            holder.tvInitial.text = user.username[0].toString().uppercase()
+        } else {
+            holder.tvInitial.text = "?"
+        }
+
         holder.itemView.setOnClickListener { onUserClick(user) }
     }
 
-    override fun getItemCount(): Int {
-        return users.size
-    }
+    override fun getItemCount(): Int = users.size
 }
-
-

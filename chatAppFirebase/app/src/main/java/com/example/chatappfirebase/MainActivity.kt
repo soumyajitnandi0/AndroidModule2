@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatappfirebase.databinding.ActivityMainBinding
 import com.google.firebase.database.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ChatFragment.ChatFragmentListener {
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var database: DatabaseReference
     private lateinit var userAdapter: UserAdapter
@@ -20,15 +21,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initialize Firebase and user list
         database = FirebaseDatabase.getInstance().reference.child("users")
         userList = ArrayList()
 
+        // Setup RecyclerView
         binding.rvUsers.layoutManager = LinearLayoutManager(this)
         userAdapter = UserAdapter(userList) { selectedUser -> openChatFragment(selectedUser) }
         binding.rvUsers.adapter = userAdapter
 
-        fetchUsers() // ✅ Ensure this is called
+        // Fetch users from database
+        fetchUsers()
 
+        // Logout functionality
         binding.fabLogout.setOnClickListener {
             SharedPrefHelper.clearUser(this)
             startActivity(Intent(this, LoginActivity::class.java))
@@ -39,11 +44,10 @@ class MainActivity : AppCompatActivity() {
     private fun fetchUsers() {
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                userList.clear() // Clear previous data
-
+                userList.clear()
                 for (userSnapshot in snapshot.children) {
                     val user = userSnapshot.getValue(UserModel::class.java)
-
+                    // Don't show the current logged-in user
                     if (user != null && user.id != SharedPrefHelper.getUser(this@MainActivity)?.id) {
                         userList.add(user)
                     }
@@ -51,11 +55,8 @@ class MainActivity : AppCompatActivity() {
 
                 userAdapter.notifyDataSetChanged()
 
-                if (userList.isEmpty()) {
-                    binding.rvUsers.visibility = View.GONE
-                } else {
-                    binding.rvUsers.visibility = View.VISIBLE
-                }
+                // Hide RecyclerView if list is empty
+                binding.rvUsers.visibility = if (userList.isEmpty()) View.GONE else View.VISIBLE
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -64,27 +65,34 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-
-
     private fun openChatFragment(user: UserModel) {
         val chatFragment = ChatFragment.newInstance(user.id, user.username)
 
+        // Replace frame layout with ChatFragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout, chatFragment)
-            .addToBackStack(null) // Ensures back button works properly
+            .addToBackStack(null)
             .commit()
 
-        binding.frameLayout.visibility = android.view.View.VISIBLE
-        binding.rvUsers.visibility = android.view.View.GONE
-        binding.fabLogout.visibility = android.view.View.GONE
+        // Hide main UI components
+        binding.frameLayout.visibility = View.VISIBLE
+        binding.rvUsers.visibility = View.GONE
+        binding.fabLogout.visibility = View.GONE
+        binding.topBar.visibility = View.GONE
+    }
+
+    // Called from ChatFragment when back button is pressed
+    override fun onChatClosed() {
+        binding.frameLayout.visibility = View.GONE
+        binding.rvUsers.visibility = View.VISIBLE
+        binding.fabLogout.visibility = View.VISIBLE
+        binding.topBar.visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
-            binding.frameLayout.visibility = android.view.View.GONE
-            binding.rvUsers.visibility = android.view.View.VISIBLE
-            binding.fabLogout.visibility = android.view.View.VISIBLE
+            onChatClosed() // Restore UI manually
         } else {
             super.onBackPressed()
         }
