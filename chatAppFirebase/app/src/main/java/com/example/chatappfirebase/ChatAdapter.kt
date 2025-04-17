@@ -3,25 +3,39 @@ package com.example.chatappfirebase
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ChatAdapter(private val chatList: List<ChatModel>, private val currentUserId: String) :
     RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val layoutLeft: LinearLayout = itemView.findViewById(R.id.layoutLeft)
+        private val layoutRight: LinearLayout = itemView.findViewById(R.id.layoutRight)
         private val tvSenderMessage: TextView = itemView.findViewById(R.id.tvMessageRight)
         private val tvReceiverMessage: TextView = itemView.findViewById(R.id.tvMessageLeft)
+        private val tvTimeLeft: TextView = itemView.findViewById(R.id.tvTimeLeft)
+        private val tvTimeRight: TextView = itemView.findViewById(R.id.tvTimeRight)
 
         fun bind(chat: ChatModel) {
+            // Format current time for demo - in a real app, you'd store timestamps with messages
+            val time = SimpleDateFormat("h:mm a", Locale.getDefault()).format(Date())
+
             if (chat.senderId == currentUserId) {
+                // This is an outgoing message
+                layoutRight.visibility = View.VISIBLE
+                layoutLeft.visibility = View.GONE
                 tvSenderMessage.text = chat.message
-                tvSenderMessage.visibility = View.VISIBLE
-                tvReceiverMessage.visibility = View.GONE
+                tvTimeRight.text = time
             } else {
+                // This is an incoming message
+                layoutLeft.visibility = View.VISIBLE
+                layoutRight.visibility = View.GONE
                 tvReceiverMessage.text = chat.message
-                tvReceiverMessage.visibility = View.VISIBLE
-                tvSenderMessage.visibility = View.GONE
+                tvTimeLeft.text = time
             }
         }
     }
